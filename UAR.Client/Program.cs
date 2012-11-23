@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 using UAR.Domain.AdventureWorks.Queries;
 using UAR.Persistence.Contracts;
