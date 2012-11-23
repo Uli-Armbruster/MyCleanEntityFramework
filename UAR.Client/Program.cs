@@ -17,7 +17,7 @@ namespace UAR.Client
             {
                 var query = new GetAddressByCity("Bothell");
                 var address = uow.ExecuteQuery(query);
-                Console.WriteLine(address.PostalCode);
+                Console.WriteLine("PLZ von Bothell: {0}", address.PostalCode);
             }
 
             Console.ReadLine();

@@ -33,6 +33,13 @@ namespace UAR.Persistence.ORM
                 .For<IUnitOfWork>()
                 .ImplementedBy<UnitOfWork>()
                 .LifestyleSingleton();
+
+
+            yield return Component
+                .For<IConfigureDatabase>()
+                .ImplementedBy<DatabaseConfiguration>()
+                .LifestyleSingleton();
+
         }
     }
 }

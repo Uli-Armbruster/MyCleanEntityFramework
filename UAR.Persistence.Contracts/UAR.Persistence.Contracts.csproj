@@ -40,6 +40,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IConfigureDatabase.cs" />
     <Compile Include="IContextFactory.cs" />
     <Compile Include="IQuery.cs" />
     <Compile Include="IUnitOfWork.cs" />
