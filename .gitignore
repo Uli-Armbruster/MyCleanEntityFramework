@@ -1,0 +1,22 @@
+bin
+obj
+*.user
+*.bak
+*.suo
+*.cache
+*.log
+*.vs10x
+*.docstates
+_ReSharper.*
+~*.*
+Reports
+Binaries
+undo.reg
+msbuild.log
+
+!tools/Ruby/bin
+!tools/Ruby/lib/ruby/gems/1.8/gems/rake-0.9.2/bin
+!Source/comWORK.Presenter.Reporting/Reports
+/Source/_Tools/SimpleTiffEditor/TestResults
+/tools/VisualStudio Templates/comWorkProjectWizard/comWorkProjectWizardSetup/Release
+/tools/VisualStudio Templates/comWorkProjectWizard/comWorkProjectWizardSetup/Debug
