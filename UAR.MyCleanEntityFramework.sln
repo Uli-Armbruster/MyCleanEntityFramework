@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UAR.Domain.AdventureWorks",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UAR.Persistence.Contracts", "UAR.Persistence.Contracts\UAR.Persistence.Contracts.csproj", "{CED37E89-1566-41C0-A885-4706790FE21C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UAR.Domain.Northwind", "UAR.Domain.Northwind\UAR.Domain.Northwind.csproj", "{4928525A-DD5F-417C-AD6F-DDED6EE77F6D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,16 @@ Global
 		{CED37E89-1566-41C0-A885-4706790FE21C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{CED37E89-1566-41C0-A885-4706790FE21C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{CED37E89-1566-41C0-A885-4706790FE21C}.Release|x86.ActiveCfg = Release|Any CPU
+		{4928525A-DD5F-417C-AD6F-DDED6EE77F6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4928525A-DD5F-417C-AD6F-DDED6EE77F6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4928525A-DD5F-417C-AD6F-DDED6EE77F6D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4928525A-DD5F-417C-AD6F-DDED6EE77F6D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4928525A-DD5F-417C-AD6F-DDED6EE77F6D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4928525A-DD5F-417C-AD6F-DDED6EE77F6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4928525A-DD5F-417C-AD6F-DDED6EE77F6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4928525A-DD5F-417C-AD6F-DDED6EE77F6D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4928525A-DD5F-417C-AD6F-DDED6EE77F6D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4928525A-DD5F-417C-AD6F-DDED6EE77F6D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
