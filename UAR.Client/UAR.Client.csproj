@@ -89,13 +89,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UAR.Domain.AdventureWorks\UAR.Domain.AdventureWorks.csproj">
       <Project>{D463A485-212C-48FA-80A0-5A8F39EC25FA}</Project>
       <Name>UAR.Domain.AdventureWorks</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UAR.Domain.Northwind\UAR.Domain.Northwind.csproj">
+      <Project>{4928525A-DD5F-417C-AD6F-DDED6EE77F6D}</Project>
+      <Name>UAR.Domain.Northwind</Name>
     </ProjectReference>
     <ProjectReference Include="..\UAR.Persistence.Contracts\UAR.Persistence.Contracts.csproj">
       <Project>{CED37E89-1566-41C0-A885-4706790FE21C}</Project>

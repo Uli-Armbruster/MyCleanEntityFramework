@@ -4,6 +4,6 @@ namespace UAR.Persistence.Contracts
 {
     public interface IContextFactory
     {
-        DbContext Create();
+        DbContext Create<T>();
     }
 }

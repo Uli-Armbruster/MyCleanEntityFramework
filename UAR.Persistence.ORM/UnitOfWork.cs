@@ -6,7 +6,7 @@ using UAR.Persistence.Contracts;
 
 namespace UAR.Persistence.ORM
 {
-    public class UnitOfWork : IUnitOfWork
+    internal class UnitOfWork : IUnitOfWork
     {
         readonly IContextFactory _contextFactory;
         DbContext _context;
@@ -18,14 +18,22 @@ namespace UAR.Persistence.ORM
 
         public void Commit()
         {
-            GetOrCreateContext();
+            ValidateContext();
             _context.SaveChanges();
         }
 
-        void GetOrCreateContext()
+        void ValidateContext()
         {
             if (_context == null)
-                _context = _contextFactory.Create();
+            {
+                throw new ApplicationException("context is null");
+            }
+        }
+
+        void GetOrCreateContext<T>()
+        {
+            if (_context == null)
+                _context = _contextFactory.Create<T>();
 
             if (_context == null)
                 throw new ApplicationException("can't create context");
@@ -33,31 +41,31 @@ namespace UAR.Persistence.ORM
 
         public void Add<T>(T entity) where T : class
         {
-            GetOrCreateContext();
+            GetOrCreateContext<T>();
             _context.Set<T>().Add(entity);
         }
 
         public void Remove<T>(T entity) where T : class
         {
-            GetOrCreateContext();
+            GetOrCreateContext<T>();
             _context.Set<T>().Remove(entity);
         }
 
         public IQueryable<T> Entities<T>() where T : class
         {
-            GetOrCreateContext();
+            GetOrCreateContext<T>();
             return _context.Set<T>();
         }
 
         public TResult ExecuteQuery<TResult, T>(IQuery<TResult, T> query) where T : class
         {
-            GetOrCreateContext();
+            GetOrCreateContext<T>();
             return query.Execute(_context.Set<T>());
         }
 
         public string GetConnectionString()
         {
-            GetOrCreateContext();
+            ValidateContext();
             return _context.Database.Connection.ConnectionString;
         }
 

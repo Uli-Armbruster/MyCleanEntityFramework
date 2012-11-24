@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Data.EntityClient;
 
 using UAR.Persistence.Contracts;
 
 namespace UAR.Persistence.ORM
 {
-    public class DatabaseConfiguration : IConfigureDatabase
+    internal class DatabaseConfiguration : IConfigureDatabase
     {
         public string EntityConnectionString(Type contextType)
         {
@@ -19,8 +18,8 @@ namespace UAR.Persistence.ORM
 
 
             var modelName = ApplyModelNamingConvention(contextName);
-
-            return String.Format(@"metadata=res://*/{0}.csdl|res://*/{0}.ssdl|res://*/{0}.msl;provider=System.Data.SqlClient;provider connection string=""data source=.\comwork;initial catalog=AdventureWorks;integrated security=True;multipleactiveresultsets=True;App=EntityFramework""", modelName);
+            var databaseName = ApplyDatabaseNamingConvention(modelName);
+            return String.Format(@"metadata=res://*/{0}.csdl|res://*/{0}.ssdl|res://*/{0}.msl;provider=System.Data.SqlClient;provider connection string=""data source=.\comwork;initial catalog={1};integrated security=True;multipleactiveresultsets=True;App=EntityFramework""", modelName, databaseName);
 
             
             //var entityBuilder = new EntityConnectionStringBuilder
@@ -30,6 +29,11 @@ namespace UAR.Persistence.ORM
             //    Metadata = "hello world"
             //};
             //return entityBuilder.ConnectionString;
+        }
+
+        string ApplyDatabaseNamingConvention(string modelName)
+        {
+            return modelName.Replace("Model", "");
         }
 
         static string ApplyModelNamingConvention(string contextName)

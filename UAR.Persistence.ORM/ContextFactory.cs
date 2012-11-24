@@ -1,21 +1,32 @@
 ﻿using System.Data.Entity;
 
+using Castle.Windsor;
+
 using UAR.Persistence.Contracts;
 
 namespace UAR.Persistence.ORM
 {
-    public class ContextFactory : IContextFactory
+    internal class ContextFactory : IContextFactory
     {
-        readonly IConfigureDatabase _databaseConfig;
+        readonly IWindsorContainer _container;
 
-        public ContextFactory(IConfigureDatabase databaseConfig)
+        public ContextFactory(IWindsorContainer container)
         {
-            _databaseConfig = databaseConfig;
+            _container = container;
         }
 
-        public DbContext Create()
+        public DbContext Create<T>()
         {
-            return new AdventureWorksDbContext(_databaseConfig);
+            var contextName = ApplyContextNamingConvention<T>();
+
+            return _container.Resolve<DbContext>(contextName);
+        }
+
+        static string ApplyContextNamingConvention<T>()
+        {
+            var modelName = typeof(T).Namespace.Replace("UAR.Domain.", "UAR.Persistence.ORM.");
+            var contextName = string.Format("{0}DbContext", modelName);
+            return contextName;
         }
     }
 }

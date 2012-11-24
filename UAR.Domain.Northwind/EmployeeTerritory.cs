@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+
 namespace UAR.Domain.Northwind
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class EmployeeTerritory
     {
         public int EmployeeID { get; set; }
@@ -19,4 +19,5 @@ namespace UAR.Domain.Northwind
     
         public virtual Employee Employee { get; set; }
     }
+    
 }

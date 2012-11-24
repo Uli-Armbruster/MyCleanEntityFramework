@@ -32,14 +32,20 @@ namespace UAR.Persistence.ORM
             yield return Component
                 .For<IUnitOfWork>()
                 .ImplementedBy<UnitOfWork>()
-                .LifestyleSingleton();
-
-
+                .LifestyleTransient();
+            
             yield return Component
                 .For<IConfigureDatabase>()
                 .ImplementedBy<DatabaseConfiguration>()
-                .LifestyleSingleton();
+                .LifestyleTransient();
 
+            yield return Component
+                .For<AdventureWorksDbContext>()
+                .LifestyleTransient();
+
+            yield return Component
+                .For<NorthwindDbContext>()
+                .LifestyleTransient();
         }
     }
 }
