@@ -44,7 +44,9 @@
     <Compile Include="IContextFactory.cs" />
     <Compile Include="IDbContext.cs" />
     <Compile Include="IQuery.cs" />
+    <Compile Include="IStoredProcedure.cs" />
     <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="IValueFunction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

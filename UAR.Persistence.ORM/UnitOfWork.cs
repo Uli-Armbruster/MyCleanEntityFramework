@@ -51,6 +51,18 @@ namespace UAR.Persistence.ORM
             return _wrappedContext.OriginContext.Database.Connection.ConnectionString;
         }
 
+        public TResult ExecuteFunction<TResult>(IValueFunction<TResult> valueFunction)
+        {
+            GetOrCreateContext(valueFunction.GetType());
+            return valueFunction.Execute(_wrappedContext);
+        }
+
+        public int ExecuteStoredProcedure(IStoredProcedure storedProcedure)
+        {
+            GetOrCreateContext(storedProcedure.GetType());
+            return storedProcedure.Execute(_wrappedContext);
+        }
+
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>

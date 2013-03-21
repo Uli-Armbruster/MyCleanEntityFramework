@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 
+using UAR.Domain.AdventureWorks.Functions;
 using UAR.Domain.AdventureWorks.Queries;
 using UAR.Domain.Northwind;
 using UAR.Persistence.Contracts;
@@ -27,7 +28,16 @@ namespace UAR.Client
                 var employee = uow.Entities<Employee>().First();
                 Console.WriteLine("Northwind DB: Name des ersten Eintrags {0} {1}", employee.FirstName, employee.LastName);
             }
-            
+
+
+            using (var uow = container.Resolve<IUnitOfWork>())
+            {
+                var sqlFunction = new GetProductListPrice(707, new DateTime(2008, 1, 1));
+                var productListPrice = uow.ExecuteFunction(sqlFunction);
+
+                Console.WriteLine("Aufruf der SQL Funktion GetProductListPrice ergibt den Wert: {0}", productListPrice);
+            }
+
 
             Console.ReadLine();
         }
