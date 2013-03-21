@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Linq;
 
 using UAR.Persistence.Contracts;
 
 namespace UAR.Persistence.ORM
 {
-    internal class UnitOfWork : IUnitOfWork
+    class UnitOfWork : IUnitOfWork
     {
         readonly IContextFactory _contextFactory;
-        DbContext _context;
+        IDbContext _wrappedContext;
 
         public UnitOfWork(IContextFactory contextFactory)
         {
@@ -19,54 +18,37 @@ namespace UAR.Persistence.ORM
         public void Commit()
         {
             ValidateContext();
-            _context.SaveChanges();
-        }
-
-        void ValidateContext()
-        {
-            if (_context == null)
-            {
-                throw new ApplicationException("context is null");
-            }
-        }
-
-        void GetOrCreateContext<T>()
-        {
-            if (_context == null)
-                _context = _contextFactory.Create<T>();
-
-            if (_context == null)
-                throw new ApplicationException("can't create context");
+            _wrappedContext.OriginContext.SaveChanges();
         }
 
         public void Add<T>(T entity) where T : class
         {
             GetOrCreateContext<T>();
-            _context.Set<T>().Add(entity);
+            _wrappedContext.Set<T>().Add(entity);
         }
 
         public void Remove<T>(T entity) where T : class
         {
             GetOrCreateContext<T>();
-            _context.Set<T>().Remove(entity);
+            _wrappedContext.Set<T>().Remove(entity);
         }
 
         public IQueryable<T> Entities<T>() where T : class
         {
             GetOrCreateContext<T>();
-            return _context.Set<T>();
+            return _wrappedContext.Set<T>();
         }
 
         public TResult ExecuteQuery<TResult, T>(IQuery<TResult, T> query) where T : class
         {
             GetOrCreateContext<T>();
-            return query.Execute(_context.Set<T>());
+            return query.Execute(_wrappedContext.Set<T>());
         }
 
         public string GetConnectionString()
         {
             ValidateContext();
-            return _context.Database.Connection.ConnectionString;
+            return _wrappedContext.OriginContext.Database.Connection.ConnectionString;
         }
 
         /// <summary>
@@ -75,10 +57,37 @@ namespace UAR.Persistence.ORM
         /// <filterpriority>2</filterpriority>
         public void Dispose()
         {
-            if (_context != null)
+            if (_wrappedContext != null)
             {
-                _context.Dispose();
-                _context = null;
+                //Todo: release from container in order to memory consumption
+                _wrappedContext.OriginContext.Dispose();
+                _wrappedContext = null;
+            }
+        }
+
+        void ValidateContext()
+        {
+            if (_wrappedContext == null)
+            {
+                throw new ApplicationException("context is null");
+            }
+        }
+
+        void GetOrCreateContext<T>()
+        {
+            GetOrCreateContext(typeof(T));
+        }
+
+        void GetOrCreateContext(Type type)
+        {
+            if (_wrappedContext == null)
+            {
+                _wrappedContext = new WrappedContext(_contextFactory.Create(type));
+            }
+
+            if (_wrappedContext == null)
+            {
+                throw new ArgumentException();
             }
         }
     }

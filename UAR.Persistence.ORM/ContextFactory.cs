@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 
 using Castle.Windsor;
 
@@ -15,18 +16,32 @@ namespace UAR.Persistence.ORM
             _container = container;
         }
 
-        public DbContext Create<T>()
-        {
-            var contextName = ApplyContextNamingConvention<T>();
 
+        public DbContext Create(Type type)
+        {
+            var contextName = ContextNameByDomain(type);
             return _container.Resolve<DbContext>(contextName);
         }
 
-        static string ApplyContextNamingConvention<T>()
+        private string ContextNameByDomain(Type type)
         {
-            var modelName = typeof(T).Namespace.Replace("UAR.Domain.", "UAR.Persistence.ORM.");
-            var contextName = string.Format("{0}DbContext", modelName);
-            return contextName;
+            if (type == null)
+                throw new ArgumentNullException("type");
+
+            if (type.Namespace == null)
+                throw new ArgumentException(string.Format("can't resolve namespace for type {0}", type.FullName));
+
+            var path = type.Namespace.Split('.');
+
+            if (path.Length < 3)
+                throw new NotSupportedException(string.Format("can't resolve namespace for type {0}", type.FullName));
+
+            var @namespace = string.Format("UAR.Persistence.ORM.{0}DbContext", path[2]);
+
+            if (String.IsNullOrWhiteSpace(@namespace))
+                throw new NotSupportedException(string.Format("can't resolve namespace for type {0}", type.FullName));
+
+            return @namespace;
         }
     }
 }

@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="IConfigureDatabase.cs" />
     <Compile Include="IContextFactory.cs" />
+    <Compile Include="IDbContext.cs" />
     <Compile Include="IQuery.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
