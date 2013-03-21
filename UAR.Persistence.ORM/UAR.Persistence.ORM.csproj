@@ -69,10 +69,10 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core">
+    <Reference Include="Castle.Core, Version=3.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.3.2.0\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Windsor">
+    <Reference Include="Castle.Windsor, Version=3.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Windsor.3.2.0\lib\net40-client\Castle.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -81,9 +81,6 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -123,14 +120,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UAR.Domain.AdventureWorks\UAR.Domain.AdventureWorks.csproj">
-      <Project>{D463A485-212C-48FA-80A0-5A8F39EC25FA}</Project>
-      <Name>UAR.Domain.AdventureWorks</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UAR.Domain.Northwind\UAR.Domain.Northwind.csproj">
-      <Project>{4928525A-DD5F-417C-AD6F-DDED6EE77F6D}</Project>
-      <Name>UAR.Domain.Northwind</Name>
-    </ProjectReference>
     <ProjectReference Include="..\UAR.Persistence.Contracts\UAR.Persistence.Contracts.csproj">
       <Project>{CED37E89-1566-41C0-A885-4706790FE21C}</Project>
       <Name>UAR.Persistence.Contracts</Name>
