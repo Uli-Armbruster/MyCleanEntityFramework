@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 
+using UAR.Client.BusinessLogic;
 using UAR.Domain.AdventureWorks.Functions;
 using UAR.Domain.AdventureWorks.Queries;
 using UAR.Domain.Northwind;
@@ -23,11 +24,21 @@ namespace UAR.Client
                 Console.WriteLine("AdventureWorks DB: PLZ von Bothell: {0}", address.PostalCode);
             }
 
+            int employeeId;
             using (var uow = container.Resolve<IUnitOfWork>())
             {
                 var employee = uow.Entities<Employee>().First();
                 Console.WriteLine("Northwind DB: Name des ersten Eintrags {0} {1}", employee.FirstName, employee.LastName);
+                Console.WriteLine("HireDate: " + employee.HireDate);
+
+                employee.HireDate = null;
+                employeeId = employee.EmployeeID;
+                uow.Commit();
             }
+
+            var employeeBusinessLogic = container.Resolve<IValidateEmployees>();
+            employeeBusinessLogic.EnsureValidHireDate(employeeId);
+            container.Release(employeeBusinessLogic);
 
 
             using (var uow = container.Resolve<IUnitOfWork>())
@@ -37,6 +48,7 @@ namespace UAR.Client
 
                 Console.WriteLine("Aufruf der SQL Funktion GetProductListPrice ergibt den Wert: {0}", productListPrice);
             }
+
 
 
             Console.ReadLine();
